@@ -1,0 +1,24 @@
+{
+  "name":"hzk/esBuilder",
+  "description":"elastic search DSL builder",
+  "version":"1.0.0-dev",
+  "type":"library",
+  "keywords":[
+    "elasticsearch",
+    "DSL",
+    "builder"
+  ],
+  "authors":[
+    {
+      "name":"huangzikun",
+      "email":"381560728@qq.com",
+      "homepage":"https://github.com/Huangzikun",
+      "role":"Developer"
+    }
+  ],
+  "autoload":{
+    "psr-4":{
+      "Huangzikun\\esBuilder\\":"src/"
+    }
+  }
+}
