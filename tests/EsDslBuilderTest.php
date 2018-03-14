@@ -7,7 +7,7 @@
  */
 namespace Huangzikun\esBuilder\tests;
 
-use Huangzikun\esBuilder\builder\EsDslBuilder;
+use Huangzikun\esBuilder\EsDslBuilder;
 use PHPUnit\Framework\TestCase;
 
 class EsDslBuilderTest extends TestCase
@@ -70,4 +70,42 @@ class EsDslBuilderTest extends TestCase
 
         $this->assertEquals($query, $builder->getDsl());
     }
+
+    public function testSetSize()
+    {
+        $builder = new EsDslBuilder();
+
+        $query = [
+            'query' => [
+                'match_all' => new \stdClass()
+            ]
+        ];
+        $this->assertEquals($query, $builder->getDsl());
+
+        $builder->setSize(10);
+        $query = [
+            'query' => [
+                'match_all' => new \stdClass()
+            ],
+            'size' => 10
+        ];
+
+        $this->assertEquals($query, $builder->getDsl());
+    }
+
+    public function testFrom()
+    {
+        $builder = new EsDslBuilder();
+
+        $builder->setFrom(10);
+        $query = [
+            'query' => [
+                'match_all' => new \stdClass()
+            ],
+            'from' => 10
+        ];
+
+        $this->assertEquals($query, $builder->getDsl());
+    }
+
 }
