@@ -18,4 +18,7 @@ class EsGrammar
     const FROM = 'from';
     const SORT = 'sort';
     const ORDER = 'order';
+    const _SOURCE = '_source';
+    const ES_EXCLUDE = 'exclude';
+    const ES_INCLUDE = 'include';
 }

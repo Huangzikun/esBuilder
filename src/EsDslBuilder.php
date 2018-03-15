@@ -74,13 +74,18 @@ class EsDslBuilder
      */
     public function setTerms(string $field, array $values, string $type)
     {
+        $this->_query[EsGrammar::BOOL][$type][EsGrammar::TERMS][$field] = array_values($values);
+
+        return $this;
+    }
+
+    public function andTerms(string $field, array $values, string $type)
+    {
         if(!empty($this->_query[EsGrammar::BOOL][$type][EsGrammar::TERMS][$field])){
             $this->_query[EsGrammar::BOOL][$type][EsGrammar::TERMS][$field] = array_merge(
                 $this->_query[EsGrammar::BOOL][$type][EsGrammar::TERMS][$field],
                 array_values($values)
             );
-        }else{
-            $this->_query[EsGrammar::BOOL][$type][EsGrammar::TERMS][$field] = array_values($values);
         }
 
         return $this;
@@ -109,9 +114,36 @@ class EsDslBuilder
         return $this;
     }
 
-    public function setExcludeField($excludeArr)
+    /**
+     * @param $exclude
+     * @return $this
+     */
+    public function setExcludeField($exclude)
     {
+        if(is_string($exclude)){
+            $this->_dsl[EsGrammar::_SOURCE][EsGrammar::ES_EXCLUDE] = $exclude;
+        }elseif (is_array($exclude)){
+            $this->_dsl[EsGrammar::_SOURCE][EsGrammar::ES_EXCLUDE] = array_values($exclude);
+        }
 
+        return $this;
     }
+
+    /**
+     * @param $include
+     * @return $this
+     */
+    public function setIncludeField($include)
+    {
+        if(is_string($include)){
+            $this->_dsl[EsGrammar::_SOURCE][EsGrammar::ES_INCLUDE] = $include;
+        }elseif (is_array($include)){
+            $this->_dsl[EsGrammar::_SOURCE][EsGrammar::ES_INCLUDE] = array_values($include);
+        }
+
+        return $this;
+    }
+
+
 
 }

@@ -66,7 +66,7 @@ class EsDslBuilderTest extends TestCase
                 ]
             ]
         ];
-        $builder->setTerms('id', ['4', '5', '6'], 'must');
+        $builder->andTerms('id', ['4', '5', '6'], 'must');
 
         $this->assertEquals($query, $builder->getDsl());
     }
@@ -105,6 +105,22 @@ class EsDslBuilderTest extends TestCase
             'from' => 10
         ];
 
+        $this->assertEquals($query, $builder->getDsl());
+    }
+
+    public function testClude()
+    {
+        $builder = new EsDslBuilder();
+
+        $builder->setIncludeField('id');
+        $query = [
+            'query' => [
+                'match_all' => new \stdClass()
+            ],
+            '_source' => [
+                'include' => 'id'
+            ]
+        ];
         $this->assertEquals($query, $builder->getDsl());
     }
 
